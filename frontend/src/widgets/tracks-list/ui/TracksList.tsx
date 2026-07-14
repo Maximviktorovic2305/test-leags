@@ -6,16 +6,16 @@ import { Card, Feedback, PageContainer, Typography } from "@/shared/ui";
 import { useTracksList } from "../model/use-tracks-list";
 import { TrackCard } from "./TrackCard";
 import { TrackDetailsDrawer } from "./TrackDetailsDrawer";
+import { TracksListSkeleton } from "./TracksListSkeleton";
 import styles from "./styles.module.css";
 
 export function TracksList() {
   const state = useTracksList();
 
-  if (state.tracksQuery.isLoading) return <Feedback type="loading" />;
+  if (state.tracksQuery.isLoading) return <TracksListSkeleton />;
   if (state.tracksQuery.isError) {
     return (
       <Feedback
-        type="error"
         message={getApiErrorMessage(
           state.tracksQuery.error,
           "Не удалось загрузить трассы",

@@ -7,16 +7,6 @@
   color: var(--color-text-muted);
 }
 
-.spinner {
-  animation: spin 700ms linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @media (max-width: 40rem) {
   .feedback {
     min-height: 8rem;

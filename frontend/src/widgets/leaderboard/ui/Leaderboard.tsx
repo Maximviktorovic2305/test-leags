@@ -7,6 +7,7 @@ import { Card, Feedback, PageContainer, Typography } from "@/shared/ui";
 import { leagueDescriptions } from "../data/league-copy";
 import { useCurrentRowVisibility } from "../model/use-current-row-visibility";
 import { useLeaderboard } from "../model/use-leaderboard";
+import { LeaderboardSkeleton } from "./LeaderboardSkeleton";
 import { LeaderboardRow } from "./LeaderboardRow";
 import styles from "./styles.module.css";
 
@@ -15,11 +16,10 @@ export function Leaderboard() {
   const entries = leaderboardQuery.data?.entries ?? [];
   const visibility = useCurrentRowVisibility(entries.length);
 
-  if (leaderboardQuery.isLoading) return <Feedback type="loading" />;
+  if (leaderboardQuery.isLoading) return <LeaderboardSkeleton />;
   if (leaderboardQuery.isError || !leaderboardQuery.data) {
     return (
       <Feedback
-        type="error"
         message={getApiErrorMessage(
           leaderboardQuery.error,
           "Не удалось загрузить рейтинг",

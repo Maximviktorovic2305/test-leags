@@ -1,0 +1,49 @@
+.skeleton {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--color-border);
+}
+
+.skeleton::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 18%,
+    color-mix(in srgb, var(--color-surface) 78%, transparent) 48%,
+    transparent 78%
+  );
+  content: "";
+  transform: translateX(-105%);
+  animation: shimmer 1.45s ease-in-out infinite;
+}
+
+.block {
+  min-height: 1rem;
+  border-radius: var(--radius-small);
+}
+
+.line {
+  height: 0.875rem;
+  border-radius: 99rem;
+}
+
+.circle {
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(105%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    opacity: 0.45;
+    transform: none;
+    animation: none;
+  }
+}

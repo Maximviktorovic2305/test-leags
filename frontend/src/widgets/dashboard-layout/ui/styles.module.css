@@ -83,6 +83,10 @@
   padding-left: 0.5rem;
 }
 
+.profileSkeleton {
+  width: 2.5rem;
+}
+
 @media (max-width: 46rem) {
   .header {
     min-height: 4.25rem;

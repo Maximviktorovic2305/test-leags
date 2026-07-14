@@ -38,6 +38,107 @@
   gap: 0.875rem;
 }
 
+.skeletonPage {
+  pointer-events: none;
+}
+
+.skeletonTitleBlock {
+  display: grid;
+  width: min(45rem, 70vw);
+  gap: 0.75rem;
+}
+
+.skeletonCaption {
+  width: 7rem;
+}
+
+.skeletonTitle {
+  width: min(31rem, 65vw);
+  height: 2rem;
+}
+
+.skeletonDescription {
+  width: min(38rem, 68vw);
+}
+
+.skeletonProgress {
+  display: flex;
+  width: 12rem;
+  min-height: 4.25rem;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.skeletonProgress > div {
+  display: grid;
+  flex: 1;
+  gap: 0.5rem;
+}
+
+.skeletonProgressIcon {
+  width: 2rem;
+}
+
+.skeletonProgressValue {
+  width: 3.5rem;
+  height: 1.125rem;
+}
+
+.skeletonProgressLabel {
+  width: 6.5rem;
+  height: 0.75rem;
+}
+
+.skeletonTrackCard {
+  display: grid;
+  min-height: 10.75rem;
+  align-content: start;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.skeletonTrackTop,
+.skeletonTrackMeta {
+  display: flex;
+  align-items: center;
+}
+
+.skeletonTrackTop {
+  justify-content: space-between;
+}
+
+.skeletonTrackNumber {
+  width: 5rem;
+  height: 0.75rem;
+}
+
+.skeletonTrackAction {
+  width: 2rem;
+}
+
+.skeletonTrackName {
+  width: 68%;
+  height: 1.25rem;
+}
+
+.skeletonTrackMeta {
+  gap: 0.5rem;
+}
+
+.skeletonPill,
+.skeletonPillWide {
+  height: 2rem;
+  border-radius: 99rem;
+}
+
+.skeletonPill {
+  width: 5.5rem;
+}
+
+.skeletonPillWide {
+  width: 7rem;
+}
+
 .trackButton {
   border: 0;
   background: transparent;
@@ -182,6 +283,16 @@
 
   .progress {
     min-width: 0;
+  }
+
+  .skeletonTitleBlock,
+  .skeletonTitle,
+  .skeletonDescription {
+    width: 100%;
+  }
+
+  .skeletonProgress {
+    width: 100%;
   }
 
   .trackCard {

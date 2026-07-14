@@ -4,4 +4,5 @@ export { Drawer } from "./drawer/Drawer";
 export { Feedback } from "./feedback/Feedback";
 export { Input } from "./input/Input";
 export { PageContainer } from "./page-container/PageContainer";
+export { Skeleton } from "./skeleton/Skeleton";
 export { Typography } from "./typography/Typography";

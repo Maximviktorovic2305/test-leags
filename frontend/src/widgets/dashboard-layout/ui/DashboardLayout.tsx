@@ -7,7 +7,7 @@ import { AuthGuard } from "@/features/auth-session";
 import { LogoutButton } from "@/features/logout";
 import { ThemeToggle } from "@/features/toggle-theme";
 import { getApiErrorMessage } from "@/shared/api";
-import { Feedback, Typography } from "@/shared/ui";
+import { Feedback, Skeleton, Typography } from "@/shared/ui";
 import { navigationItems } from "../data/navigation-items";
 import { useDashboardLayout } from "../model/use-dashboard-layout";
 import { ProfileMenu } from "./ProfileMenu";
@@ -51,12 +51,17 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
               <ThemeToggle />
               <LogoutButton />
               {userQuery.data ? <ProfileMenu user={userQuery.data} /> : null}
+              {userQuery.isLoading ? (
+                <Skeleton
+                  className={styles.profileSkeleton}
+                  shape="circle"
+                />
+              ) : null}
             </div>
           </div>
         </header>
         {userQuery.isError ? (
           <Feedback
-            type="error"
             message={getApiErrorMessage(
               userQuery.error,
               "Не удалось загрузить профиль",
