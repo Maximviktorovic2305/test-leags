@@ -17,11 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v5
         with:
           version: 11.13.0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: pnpm
@@ -36,7 +36,7 @@ jobs:
         run: |
           pnpm --dir backend typecheck
           pnpm --dir backend lint
-          pnpm --dir backend test -- --runInBand
+          pnpm --dir backend exec jest --runInBand
           pnpm --dir backend build
       - name: Check frontend
         run: |
@@ -56,7 +56,7 @@ jobs:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Configure SSH
         run: |
           install -m 700 -d "$HOME/.ssh"
