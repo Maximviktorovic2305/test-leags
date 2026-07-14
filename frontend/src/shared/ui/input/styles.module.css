@@ -1,0 +1,31 @@
+.field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  min-height: 3.25rem;
+  border: 0.0625rem solid var(--color-border);
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 0.75rem 0.875rem;
+  outline: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.1875rem var(--color-primary-soft);
+}
+
+.input[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}

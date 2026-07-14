@@ -1,0 +1,89 @@
+.shell {
+  min-height: 100vh;
+}
+
+.header {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  display: grid;
+  min-height: 4.75rem;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  border-bottom: 0.0625rem solid var(--color-border);
+  background: var(--color-surface);
+  padding: 0.75rem clamp(1rem, 4vw, 3.5rem);
+}
+
+.brand,
+.profile,
+.navigation,
+.navItem {
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  gap: 0.625rem;
+}
+
+.logo {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+.navigation {
+  gap: 0.25rem;
+  border-radius: var(--radius-small);
+  background: var(--color-surface-muted);
+  padding: 0.25rem;
+}
+
+.navItem {
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  color: var(--color-text-muted);
+  padding: 0.625rem 0.875rem;
+}
+
+.navItem:hover,
+.active {
+  background: var(--color-surface);
+  color: var(--color-primary);
+}
+
+.profile {
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+@media (max-width: 46rem) {
+  .header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .navigation {
+    position: fixed;
+    z-index: 20;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    justify-content: center;
+    box-shadow: var(--shadow-card);
+  }
+
+  .navItem {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .profile > div {
+    display: none;
+  }
+}

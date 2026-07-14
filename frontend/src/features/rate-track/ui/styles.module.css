@@ -1,0 +1,35 @@
+.rating,
+.heading {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.rating {
+  gap: 1rem;
+  border-top: 0.0625rem solid var(--color-border);
+  padding-top: 1.5rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.star {
+  display: grid;
+  border: 0;
+  background: transparent;
+  color: var(--color-border);
+  cursor: pointer;
+  padding: 0.25rem;
+  transition:
+    color 140ms ease,
+    transform 140ms ease;
+}
+
+.star:hover,
+.star:focus-visible,
+.active {
+  color: var(--color-gold);
+  transform: scale(1.08);
+}

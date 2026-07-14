@@ -1,0 +1,215 @@
+.page {
+  width: min(100%, 74rem);
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1rem, 4vw, 3rem) 7rem;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.titleBlock {
+  display: flex;
+  max-width: 45rem;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.titleBlock > div {
+  display: grid;
+  gap: 0.625rem;
+}
+
+.leagueIcon,
+.arrowIcon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.leagueIcon {
+  width: 3.25rem;
+  height: 3.25rem;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.leagueIcon.blue {
+  background: var(--color-blue-soft);
+  color: var(--color-blue);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 17rem;
+  gap: 1rem;
+  align-items: start;
+}
+
+.board {
+  overflow: hidden;
+}
+
+.boardHeader,
+.boardHeader > div {
+  display: flex;
+  align-items: center;
+}
+
+.boardHeader {
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 0.0625rem solid var(--color-border);
+  padding: 1.25rem 1.5rem;
+}
+
+.boardHeader > div {
+  gap: 0.625rem;
+}
+
+.boardHeader svg {
+  color: var(--color-gold);
+}
+
+.tableHeader,
+.row {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr) 7rem;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tableHeader {
+  border-bottom: 0.0625rem solid var(--color-border);
+  background: var(--color-surface-muted);
+  padding: 0.75rem 1.5rem;
+}
+
+.tableHeader > :last-child,
+.score {
+  text-align: right;
+}
+
+.rows {
+  max-height: 31rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.row {
+  min-height: 4.25rem;
+  border-bottom: 0.0625rem solid var(--color-border);
+  padding: 0.75rem 1.5rem;
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.rank {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-muted);
+}
+
+.name {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.current {
+  background: var(--color-primary-soft);
+}
+
+.place1 .rank {
+  color: var(--color-gold);
+}
+
+.place2 .rank {
+  color: var(--color-silver);
+}
+
+.place3 .rank {
+  color: var(--color-bronze);
+}
+
+.pinned {
+  display: grid;
+  gap: 0.5rem;
+  border-top: 0.0625rem solid var(--color-primary);
+  background: var(--color-surface);
+  padding-top: 0.75rem;
+}
+
+.pinned > span {
+  padding: 0 1.5rem;
+}
+
+.stickyRow {
+  border-bottom: 0;
+}
+
+.sidebar {
+  display: grid;
+  gap: 1rem;
+}
+
+.userResult,
+.ruleCard {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.25rem;
+}
+
+.userResult {
+  background: var(--color-primary);
+}
+
+.userResult p,
+.userResult h1,
+.userResult span {
+  color: var(--color-primary-contrast);
+}
+
+.arrowIcon {
+  width: 2.75rem;
+  height: 2.75rem;
+  background: var(--color-primary-contrast);
+  color: var(--color-primary);
+}
+
+@media (max-width: 54rem) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 40rem) {
+  .pageHeader,
+  .titleBlock {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .tableHeader,
+  .row {
+    grid-template-columns: 3.5rem minmax(0, 1fr) 6rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+}
