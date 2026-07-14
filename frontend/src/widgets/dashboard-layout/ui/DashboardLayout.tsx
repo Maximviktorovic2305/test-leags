@@ -3,12 +3,14 @@
 import { FlagTriangleRight, Mountain, Trophy } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { UserBadge } from "@/entities/user";
 import { AuthGuard } from "@/features/auth-session";
 import { LogoutButton } from "@/features/logout";
+import { ThemeToggle } from "@/features/toggle-theme";
+import { getApiErrorMessage } from "@/shared/api";
 import { Feedback, Typography } from "@/shared/ui";
 import { navigationItems } from "../data/navigation-items";
 import { useDashboardLayout } from "../model/use-dashboard-layout";
+import { ProfileMenu } from "./ProfileMenu";
 import styles from "./styles.module.css";
 
 export function DashboardLayout({ children }: { children: ReactNode }) {
@@ -45,12 +47,21 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
           </nav>
 
           <div className={styles.profile}>
-            {userQuery.data ? <UserBadge user={userQuery.data} /> : null}
-            <LogoutButton />
+            <div className={styles.profileActions}>
+              <ThemeToggle />
+              <LogoutButton />
+              {userQuery.data ? <ProfileMenu user={userQuery.data} /> : null}
+            </div>
           </div>
         </header>
         {userQuery.isError ? (
-          <Feedback type="error" message="Профиль не найден. Войдите снова." />
+          <Feedback
+            type="error"
+            message={getApiErrorMessage(
+              userQuery.error,
+              "Не удалось загрузить профиль",
+            )}
+          />
         ) : (
           children
         )}

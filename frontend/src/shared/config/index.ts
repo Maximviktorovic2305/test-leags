@@ -1,1 +1,1 @@
-export { API_URL } from "./env";
+export { API_URL, APP_URL } from "./env";

@@ -2,7 +2,8 @@
 
 import { ArrowUp, ShieldCheck, Trophy } from "lucide-react";
 import { RecalculateLeaguesButton } from "@/features/recalculate-leagues";
-import { Card, Feedback, Typography } from "@/shared/ui";
+import { getApiErrorMessage } from "@/shared/api";
+import { Card, Feedback, PageContainer, Typography } from "@/shared/ui";
 import { leagueDescriptions } from "../data/league-copy";
 import { useCurrentRowVisibility } from "../model/use-current-row-visibility";
 import { useLeaderboard } from "../model/use-leaderboard";
@@ -16,13 +17,21 @@ export function Leaderboard() {
 
   if (leaderboardQuery.isLoading) return <Feedback type="loading" />;
   if (leaderboardQuery.isError || !leaderboardQuery.data) {
-    return <Feedback type="error" message="Не удалось загрузить рейтинг" />;
+    return (
+      <Feedback
+        type="error"
+        message={getApiErrorMessage(
+          leaderboardQuery.error,
+          "Не удалось загрузить рейтинг",
+        )}
+      />
+    );
   }
 
   const leaderboard = leaderboardQuery.data;
 
   return (
-    <main className={styles.page}>
+    <PageContainer>
       <header className={styles.pageHeader}>
         <div className={styles.titleBlock}>
           <span
@@ -89,7 +98,7 @@ export function Leaderboard() {
         </Card>
 
         <aside className={styles.sidebar}>
-          <Card className={styles.userResult}>
+          <Card className={styles.userResult} padding="default">
             <span className={styles.arrowIcon}>
               <ArrowUp aria-hidden size={22} />
             </span>
@@ -102,7 +111,7 @@ export function Leaderboard() {
             </Typography>
           </Card>
 
-          <Card className={styles.ruleCard}>
+          <Card className={styles.ruleCard} padding="default">
             <Typography variant="h3">Как перейти выше</Typography>
             <Typography tone="muted">
               В момент пересчёта топ‑3 Зелёной лиги автоматически переходит в
@@ -111,6 +120,6 @@ export function Leaderboard() {
           </Card>
         </aside>
       </div>
-    </main>
+    </PageContainer>
   );
 }

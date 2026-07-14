@@ -30,16 +30,19 @@ enum CompletionResult {
 }
 
 model User {
-  id            String            @id @default(cuid())
-  nickname      String            @unique
-  gender        Gender
-  league        League            @default(GREEN)
-  points        Int               @default(0)
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @updatedAt
-  completions   TrackCompletion[]
-  ratings       TrackRating[]
-  leagueChanges LeagueChange[]
+  id              String            @id @default(cuid())
+  nickname        String            @unique
+  gender          Gender
+  league          League            @default(GREEN)
+  points          Int               @default(0)
+  avatarData      Bytes?
+  avatarMimeType  String?
+  avatarUpdatedAt DateTime?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  completions     TrackCompletion[]
+  ratings         TrackRating[]
+  leagueChanges   LeagueChange[]
 
   @@index([league, points])
   @@map("users")

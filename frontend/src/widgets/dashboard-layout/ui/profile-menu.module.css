@@ -1,0 +1,84 @@
+.root {
+  position: relative;
+}
+
+.trigger {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  padding: 0.125rem;
+}
+
+.menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  display: grid;
+  width: min(20rem, calc(100vw - 1.5rem));
+  gap: 1rem;
+  visibility: hidden;
+  border: 0.0625rem solid var(--color-border-strong);
+  border-radius: var(--radius-medium);
+  opacity: 0;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-floating);
+  padding: 1rem;
+  pointer-events: none;
+  transform: translateY(-0.5rem) scale(0.97);
+  transform-origin: top right;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    visibility 0s linear 180ms;
+}
+
+.open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  transition-delay: 0s;
+}
+
+.identity,
+.stat {
+  display: flex;
+  align-items: center;
+}
+
+.identity {
+  gap: 0.75rem;
+}
+
+.identityText {
+  display: grid;
+  min-width: 0;
+  gap: 0.125rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.stat {
+  gap: 0.625rem;
+  border-radius: var(--radius-small);
+  background: var(--color-surface-muted);
+  color: var(--color-primary);
+  padding: 0.75rem;
+}
+
+.stat > div {
+  display: grid;
+  min-width: 0;
+  gap: 0.125rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu {
+    transition: none;
+  }
+}

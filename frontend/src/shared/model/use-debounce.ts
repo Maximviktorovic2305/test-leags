@@ -1,0 +1,17 @@
+import { useEffect, useState } from "react";
+
+const DEFAULT_DEBOUNCE_DELAY_MS = 300;
+
+export function useDebounce<T>(
+  value: T,
+  delayMs = DEFAULT_DEBOUNCE_DELAY_MS,
+): T {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setDebouncedValue(value), delayMs);
+    return () => clearTimeout(timeoutId);
+  }, [delayMs, value]);
+
+  return debouncedValue;
+}

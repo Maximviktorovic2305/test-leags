@@ -23,7 +23,7 @@ export class LeaderboardService {
       where: { id: userId },
       select: { id: true, league: true },
     });
-    if (!user) throw new UnauthorizedException('User does not exist');
+    if (!user) throw new UnauthorizedException('Пользователь не найден');
 
     const entries = await this.getLeagueEntries(user.league);
     const currentUserIndex = entries.findIndex((entry) => entry.id === user.id);

@@ -18,10 +18,8 @@ type SessionContextValue = {
 const SessionContext = createContext<SessionContextValue | null>(null);
 
 function subscribeToSession(callback: () => void) {
-  window.addEventListener("storage", callback);
   window.addEventListener(AUTH_CHANGED_EVENT, callback);
   return () => {
-    window.removeEventListener("storage", callback);
     window.removeEventListener(AUTH_CHANGED_EVENT, callback);
   };
 }

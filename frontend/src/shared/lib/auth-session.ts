@@ -2,6 +2,8 @@ const ACCESS_TOKEN_KEY = "accessToken";
 const LEGACY_USER_ID_KEY = "climb-league-user-id";
 export const AUTH_CHANGED_EVENT = "auth-changed";
 
+let accessToken: string | null = null;
+
 function getStorage() {
   return typeof window === "undefined" ? null : window.localStorage;
 }
@@ -13,23 +15,23 @@ function notifyAuthChanged() {
 }
 
 export function getAccessToken(): string | null {
-  return getStorage()?.getItem(ACCESS_TOKEN_KEY) ?? null;
+  return accessToken;
 }
 
-export function setAccessToken(accessToken: string): void {
+export function setAccessToken(nextAccessToken: string): void {
+  accessToken = nextAccessToken;
   const storage = getStorage();
-  if (!storage) return;
-  storage.setItem(ACCESS_TOKEN_KEY, accessToken);
-  storage.removeItem(LEGACY_USER_ID_KEY);
-  storage.removeItem("refreshToken");
+  storage?.removeItem(ACCESS_TOKEN_KEY);
+  storage?.removeItem(LEGACY_USER_ID_KEY);
+  storage?.removeItem("refreshToken");
   notifyAuthChanged();
 }
 
 export function clearAuthSession(): void {
+  accessToken = null;
   const storage = getStorage();
-  if (!storage) return;
-  storage.removeItem(ACCESS_TOKEN_KEY);
-  storage.removeItem(LEGACY_USER_ID_KEY);
-  storage.removeItem("refreshToken");
+  storage?.removeItem(ACCESS_TOKEN_KEY);
+  storage?.removeItem(LEGACY_USER_ID_KEY);
+  storage?.removeItem("refreshToken");
   notifyAuthChanged();
 }

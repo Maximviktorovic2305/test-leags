@@ -16,6 +16,7 @@ import {
 } from './auth-cookie.constants';
 import { getAuthTokenSettings } from './auth-token-config';
 import { AuthService } from './auth.service';
+import { CsrfHeaderGuard } from './csrf-header.guard';
 import { LoginDto } from './dto/login.dto';
 import { GetUser } from './get-user.decorator';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -47,7 +48,7 @@ export class AuthController {
 
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtRefreshGuard)
+  @UseGuards(CsrfHeaderGuard, JwtRefreshGuard)
   async refresh(
     @GetUser('id') userId: string,
     @GetUser('refreshToken') refreshToken: string,
@@ -83,11 +84,15 @@ export class AuthController {
 
   private getBaseCookieOptions(): CookieOptions {
     const isProduction = this.config.get('NODE_ENV') === 'production';
+    const secure =
+      this.config.get<string>('COOKIE_SECURE')?.toLowerCase() === 'false'
+        ? false
+        : isProduction;
     const domain = this.config.get<string>('COOKIE_DOMAIN');
     return {
       httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? 'none' : 'lax',
+      secure,
+      sameSite: secure ? 'none' : 'lax',
       path: REFRESH_TOKEN_COOKIE_PATH,
       ...(domain ? { domain } : {}),
     };

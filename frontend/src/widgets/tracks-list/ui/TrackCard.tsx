@@ -9,14 +9,21 @@ type TrackCardProps = {
 };
 
 export function TrackCard({ onClick, track }: TrackCardProps) {
+  const difficultyClass = styles[`${track.difficulty.toLowerCase()}Card`];
+
   return (
     <button className={styles.trackButton} onClick={onClick} type="button">
-      <Card className={styles.trackCard}>
+      <Card
+        className={`${styles.trackCard} ${difficultyClass}`}
+        padding="default"
+      >
         <div className={styles.trackTop}>
           <Typography variant="caption" tone="muted">
             Трасса {String(track.order).padStart(2, "0")}
           </Typography>
-          <ArrowUpRight aria-hidden size={19} />
+          <span className={styles.trackAction}>
+            <ArrowUpRight aria-hidden size={17} />
+          </span>
         </div>
 
         <div className={styles.trackName}>

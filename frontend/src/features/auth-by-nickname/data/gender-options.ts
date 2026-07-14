@@ -5,6 +5,6 @@ export const genderOptions: Array<{
   label: string;
   description: string;
 }> = [
-  { value: "MALE", label: "Мужчина", description: "Он / его" },
-  { value: "FEMALE", label: "Женщина", description: "Она / её" },
+  { value: "MALE", label: "Мужчина", description: "Он" },
+  { value: "FEMALE", label: "Женщина", description: "Она" },
 ];

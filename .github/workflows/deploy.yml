@@ -1,0 +1,83 @@
+name: CI and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.13.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: |
+            backend/pnpm-lock.yaml
+            frontend/pnpm-lock.yaml
+      - name: Install dependencies
+        run: |
+          pnpm --dir backend install --frozen-lockfile
+          pnpm --dir frontend install --frozen-lockfile
+      - name: Check backend
+        run: |
+          pnpm --dir backend typecheck
+          pnpm --dir backend lint
+          pnpm --dir backend test -- --runInBand
+          pnpm --dir backend build
+      - name: Check frontend
+        run: |
+          pnpm --dir frontend typecheck
+          pnpm --dir frontend lint
+          pnpm --dir frontend lint:fsd
+          pnpm --dir frontend build
+
+  deploy:
+    needs: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: Production
+    env:
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure SSH
+        run: |
+          install -m 700 -d "$HOME/.ssh"
+          printf '%s\n' "$SSH_PRIVATE_KEY" > "$HOME/.ssh/leags_deploy"
+          chmod 600 "$HOME/.ssh/leags_deploy"
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+      - name: Package source
+        run: |
+          tar \
+            --exclude=.git \
+            --exclude=node_modules \
+            --exclude=.next \
+            --exclude=dist \
+            --exclude=coverage \
+            -czf "/tmp/${GITHUB_SHA}.tar.gz" .
+      - name: Upload and deploy
+        run: |
+          ssh -i "$HOME/.ssh/leags_deploy" "$SSH_USERNAME@$SSH_HOST" \
+            "mkdir -p ~/leags/incoming"
+          scp -i "$HOME/.ssh/leags_deploy" "/tmp/${GITHUB_SHA}.tar.gz" \
+            "$SSH_USERNAME@$SSH_HOST:leags/incoming/${GITHUB_SHA}.tar.gz"
+          ssh -i "$HOME/.ssh/leags_deploy" "$SSH_USERNAME@$SSH_HOST" \
+            "bash -s -- '${GITHUB_SHA}'" < deploy/remote-deploy.sh

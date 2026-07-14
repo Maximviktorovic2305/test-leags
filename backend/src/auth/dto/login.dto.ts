@@ -6,13 +6,15 @@ export class LoginDto {
   @Transform(({ value }: { value: unknown }) =>
     typeof value === 'string' ? value.trim() : value,
   )
-  @IsString()
-  @Length(2, 24)
+  @IsString({ message: 'Никнейм должен быть строкой' })
+  @Length(2, 24, {
+    message: 'Никнейм должен содержать от 2 до 24 символов',
+  })
   @Matches(/^[\p{L}\p{N}_-]+$/u, {
-    message: 'nickname may contain letters, numbers, _ and -',
+    message: 'Никнейм может содержать только буквы, цифры, _ и -',
   })
   nickname!: string;
 
-  @IsEnum(Gender)
+  @IsEnum(Gender, { message: 'Выберите пол: мужчина или женщина' })
   gender!: Gender;
 }

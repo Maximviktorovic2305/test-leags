@@ -23,10 +23,37 @@ export function validateEnvironment(config: Environment): Environment {
     throw new Error('JWT access and refresh secrets must be different');
   }
 
+  if (
+    config.COOKIE_SECURE &&
+    !['true', 'false'].includes(config.COOKIE_SECURE.toLowerCase())
+  ) {
+    throw new Error('COOKIE_SECURE must be true or false');
+  }
+
   const port = Number(config.PORT ?? 3078);
   if (!Number.isInteger(port) || port <= 0) {
     throw new Error('PORT must be a positive integer');
   }
 
-  return { ...config, PORT: String(port) };
+  const positiveIntegerDefaults = {
+    RATE_LIMIT_TTL_MS: 60_000,
+    RATE_LIMIT_MAX: 100,
+    RATE_LIMIT_BLOCK_MS: 60_000,
+  } as const;
+  const normalizedRateLimitConfig: Record<string, string> = {};
+  for (const [variable, defaultValue] of Object.entries(
+    positiveIntegerDefaults,
+  )) {
+    const value = Number(config[variable] ?? defaultValue);
+    if (!Number.isInteger(value) || value <= 0) {
+      throw new Error(`${variable} must be a positive integer`);
+    }
+    normalizedRateLimitConfig[variable] = String(value);
+  }
+
+  return {
+    ...config,
+    ...normalizedRateLimitConfig,
+    PORT: String(port),
+  };
 }

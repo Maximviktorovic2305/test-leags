@@ -19,7 +19,12 @@ export function Input({ error, id, label, className = "", ...props }: InputProps
         {...props}
       />
       {error ? (
-        <Typography id={`${id}-error`} variant="small" tone="danger">
+        <Typography
+          id={`${id}-error`}
+          role="alert"
+          variant="small"
+          tone="danger"
+        >
           {error}
         </Typography>
       ) : null}

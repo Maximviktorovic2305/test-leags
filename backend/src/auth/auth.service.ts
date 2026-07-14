@@ -53,7 +53,7 @@ export class AuthService {
       select: publicUserSelect,
     });
 
-    if (!user) throw new UnauthorizedException('User does not exist');
+    if (!user) throw new UnauthorizedException('Пользователь не найден');
     return user;
   }
 

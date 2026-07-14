@@ -1,7 +1,16 @@
 import { apiRequest } from "@/shared/api";
-import type { Gender, User } from "@/entities/user";
+import type { Gender, League } from "@/entities/user";
 
-export type LoginResponse = { accessToken: string; user: User };
+export type LoginResponse = {
+  accessToken: string;
+  user: {
+    gender: Gender;
+    id: string;
+    league: League;
+    nickname: string;
+    points: number;
+  };
+};
 
 export function login(payload: {
   nickname: string;

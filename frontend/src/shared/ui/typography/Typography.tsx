@@ -9,7 +9,8 @@ export type TypographyVariant =
   | "body"
   | "small"
   | "label"
-  | "caption";
+  | "caption"
+  | "micro";
 
 type TypographyProps = HTMLAttributes<HTMLElement> & {
   as?: ElementType;
@@ -27,6 +28,7 @@ const defaultElements: Record<TypographyVariant, ElementType> = {
   small: "p",
   label: "span",
   caption: "span",
+  micro: "span",
 };
 
 export function Typography({

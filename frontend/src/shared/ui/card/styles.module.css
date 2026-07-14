@@ -1,6 +1,36 @@
 .card {
-  border: 0.0625rem solid var(--color-border);
+  border: 0.0625rem solid var(--color-border-strong);
   border-radius: var(--radius-large);
   background: var(--color-surface);
   box-shadow: var(--shadow-card);
+}
+
+.none {
+  padding: 0;
+}
+
+.compact {
+  padding: 1rem;
+}
+
+.default {
+  padding: 1.25rem;
+}
+
+.comfortable {
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+@media (max-width: 40rem) {
+  .compact {
+    padding: 0.75rem;
+  }
+
+  .default {
+    padding: 0.875rem;
+  }
+
+  .comfortable {
+    padding: 1rem;
+  }
 }

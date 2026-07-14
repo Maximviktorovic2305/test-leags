@@ -1,0 +1,59 @@
+.root {
+  display: grid;
+  gap: 0.375rem;
+}
+
+.uploadButton {
+  display: flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 0.0625rem solid var(--color-border-strong);
+  border-radius: var(--radius-small);
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.uploadButton:hover,
+.uploadButton:focus-within {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.input {
+  position: absolute;
+  width: 0.0625rem;
+  height: 0.0625rem;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.spinner {
+  animation: spin 800ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uploadButton {
+    transition: none;
+  }
+
+  .spinner {
+    animation: none;
+  }
+}

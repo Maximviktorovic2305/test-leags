@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Climb League">
+  <rect width="64" height="64" rx="16" fill="#356b42"/>
+  <path d="M11 47 27.5 18 36 32l5-8 12 23H11Z" fill="#fff"/>
+  <path d="m27.5 18 4.7 7.8-4.8-1.7-3.7 2.2 3.8-8.3Z" fill="#dcebdc"/>
+</svg>

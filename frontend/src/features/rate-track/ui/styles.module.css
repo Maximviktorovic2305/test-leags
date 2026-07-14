@@ -21,15 +21,27 @@
   background: transparent;
   color: var(--color-border);
   cursor: pointer;
+  border-radius: 50%;
   padding: 0.25rem;
   transition:
     color 140ms ease,
-    transform 140ms ease;
+    background-color 140ms ease;
 }
 
 .star:hover,
 .star:focus-visible,
 .active {
   color: var(--color-gold);
-  transform: scale(1.08);
+}
+
+.star:hover,
+.star:focus-visible {
+  background: var(--color-gold-soft);
+}
+
+@media (max-width: 40rem) {
+  .rating {
+    gap: 0.75rem;
+    padding-top: 1rem;
+  }
 }

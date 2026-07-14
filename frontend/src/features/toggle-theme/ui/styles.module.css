@@ -1,0 +1,48 @@
+.toggle {
+  width: 2.25rem;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.icon {
+  position: relative;
+  display: block;
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.sun,
+.moon {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 220ms ease,
+    transform 320ms ease;
+}
+
+.sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.45);
+}
+
+:global([data-theme="dark"]) .sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.45);
+}
+
+:global([data-theme="dark"]) .moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sun,
+  .moon {
+    transition: none;
+  }
+}

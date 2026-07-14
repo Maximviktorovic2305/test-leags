@@ -58,10 +58,10 @@ export class TracksService {
           }),
         ]);
 
-        if (!user) throw new UnauthorizedException('User does not exist');
-        if (!track) throw new NotFoundException('Track does not exist');
+        if (!user) throw new UnauthorizedException('Пользователь не найден');
+        if (!track) throw new NotFoundException('Трасса не найдена');
         if (existingCompletion) {
-          throw new ConflictException('Track has already been completed');
+          throw new ConflictException('Эта трасса уже была пройдена');
         }
 
         const awardedPoints = this.pointsCalculator.calculate(
@@ -104,7 +104,9 @@ export class TracksService {
     });
 
     if (!completion) {
-      throw new BadRequestException('Complete the track before rating it');
+      throw new BadRequestException(
+        'Сначала пройдите трассу, затем поставьте оценку',
+      );
     }
 
     return this.prisma.trackRating.upsert({
@@ -120,6 +122,6 @@ export class TracksService {
       where: { id: userId },
       select: { id: true },
     });
-    if (!user) throw new UnauthorizedException('User does not exist');
+    if (!user) throw new UnauthorizedException('Пользователь не найден');
   }
 }

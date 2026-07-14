@@ -10,6 +10,10 @@ type RequestOptions = Omit<RequestInit, "body"> & {
   body?: unknown;
 };
 
+type ApiFetchOptions = RequestInit & {
+  auth?: boolean;
+};
+
 type ApiErrorPayload = {
   message?: string | string[];
 };
@@ -53,6 +57,7 @@ export async function refreshAccessToken(): Promise<AccessTokenResponse> {
     method: "POST",
     credentials: "include",
     cache: "no-store",
+    headers: { "X-Requested-With": "XMLHttpRequest" },
   });
   if (!response.ok) throw await readError(response, "Не удалось обновить сессию");
   return response.json() as Promise<AccessTokenResponse>;
@@ -67,13 +72,12 @@ function resolveRefresh(): Promise<AccessTokenResponse> {
   return refreshPromise;
 }
 
-export async function apiRequest<T>(
+export async function apiFetch(
   path: string,
-  options: RequestOptions = {},
-): Promise<T> {
-  const { auth = true, body, ...requestInit } = options;
-  const headers = new Headers(options.headers);
-  if (body !== undefined) headers.set("Content-Type", "application/json");
+  options: ApiFetchOptions = {},
+): Promise<Response> {
+  const { auth = true, ...requestInit } = options;
+  const headers = new Headers(requestInit.headers);
   let accessToken = auth ? getAccessToken() : null;
 
   if (accessToken && isTokenExpiring(accessToken)) {
@@ -95,7 +99,6 @@ export async function apiRequest<T>(
     return fetch(`${API_URL}${path}`, {
       ...requestInit,
       headers: requestHeaders,
-      body: body === undefined ? undefined : JSON.stringify(body),
       credentials: requestInit.credentials ?? "include",
       cache: "no-store",
     });
@@ -121,6 +124,22 @@ export async function apiRequest<T>(
   if (!response.ok) {
     throw await readError(response, "Не удалось выполнить запрос");
   }
+
+  return response;
+}
+
+export async function apiRequest<T>(
+  path: string,
+  options: RequestOptions = {},
+): Promise<T> {
+  const { body, headers: initialHeaders, ...requestInit } = options;
+  const headers = new Headers(initialHeaders);
+  if (body !== undefined) headers.set("Content-Type", "application/json");
+  const response = await apiFetch(path, {
+    ...requestInit,
+    headers,
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
 
   return response.json() as Promise<T>;
 }

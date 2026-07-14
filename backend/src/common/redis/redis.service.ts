@@ -27,7 +27,7 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
       await this.getConnectedClient();
     } catch {
       this.logger.warn(
-        'Refresh sessions are unavailable until Redis reconnects',
+        'Redis-dependent services are unavailable until Redis reconnects',
       );
     }
   }

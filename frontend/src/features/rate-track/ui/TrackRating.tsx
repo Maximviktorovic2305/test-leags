@@ -1,6 +1,7 @@
 "use client";
 
 import { Star } from "lucide-react";
+import { getApiErrorMessage } from "@/shared/api";
 import { Button, Typography } from "@/shared/ui";
 import { ratingValues } from "../data/rating-values";
 import { useRateTrack } from "../model/use-rate-track";
@@ -50,7 +51,7 @@ export function TrackRating({ initialRating, trackId }: TrackRatingProps) {
       ) : null}
       {mutation.error ? (
         <Typography role="alert" variant="small" tone="danger">
-          {mutation.error.message}
+          {getApiErrorMessage(mutation.error, "Не удалось сохранить оценку")}
         </Typography>
       ) : null}
     </section>

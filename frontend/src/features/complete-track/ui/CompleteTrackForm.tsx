@@ -2,6 +2,7 @@
 
 import { Check, RotateCcw } from "lucide-react";
 import { completionResultLabels, type Track } from "@/entities/track";
+import { getApiErrorMessage } from "@/shared/api";
 import { Button, Typography } from "@/shared/ui";
 import { completionOptions } from "../data/completion-options";
 import { useCompleteTrack } from "../model/use-complete-track";
@@ -50,7 +51,10 @@ export function CompleteTrackForm({ track }: CompleteTrackFormProps) {
       </div>
       {mutation.error ? (
         <Typography role="alert" variant="small" tone="danger">
-          {mutation.error.message}
+          {getApiErrorMessage(
+            mutation.error,
+            "Не удалось сохранить прохождение",
+          )}
         </Typography>
       ) : null}
     </section>

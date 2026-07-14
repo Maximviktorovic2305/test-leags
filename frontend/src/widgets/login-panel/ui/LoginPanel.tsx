@@ -1,4 +1,4 @@
-import { Mountain, Sparkles, Trophy } from "lucide-react";
+import { Mountain, Trophy } from "lucide-react";
 import { LoginForm } from "@/features/auth-by-nickname";
 import { Card, Typography } from "@/shared/ui";
 import { leagueBenefits } from "../data/league-benefits";
@@ -28,16 +28,16 @@ export function LoginPanel() {
 
         <div className={styles.benefits}>
           {leagueBenefits.map((item) => (
-            <div className={styles.benefit} key={item.label}>
+            <Card className={styles.benefit} key={item.label} padding="compact">
               <Typography variant="h2">{item.value}</Typography>
               <Typography variant="small" tone="muted">
                 {item.label}
               </Typography>
-            </div>
+            </Card>
           ))}
         </div>
 
-        <div className={styles.promo}>
+        <Card className={styles.promo} padding="compact">
           <span className={styles.promoIcon}>
             <Trophy aria-hidden size={20} />
           </span>
@@ -47,12 +47,11 @@ export function LoginPanel() {
               Тестовый рейтинг настроен для быстрого рывка.
             </Typography>
           </div>
-          <Sparkles aria-hidden className={styles.sparkle} size={18} />
-        </div>
+        </Card>
       </section>
 
       <section className={styles.loginSide}>
-        <Card className={styles.loginCard}>
+        <Card className={styles.loginCard} padding="comfortable">
           <LoginForm />
         </Card>
       </section>

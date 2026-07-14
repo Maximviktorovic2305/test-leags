@@ -1,7 +1,8 @@
 "use client";
 
 import { Route, Sparkles } from "lucide-react";
-import { Feedback, Typography } from "@/shared/ui";
+import { getApiErrorMessage } from "@/shared/api";
+import { Card, Feedback, PageContainer, Typography } from "@/shared/ui";
 import { useTracksList } from "../model/use-tracks-list";
 import { TrackCard } from "./TrackCard";
 import { TrackDetailsDrawer } from "./TrackDetailsDrawer";
@@ -12,14 +13,22 @@ export function TracksList() {
 
   if (state.tracksQuery.isLoading) return <Feedback type="loading" />;
   if (state.tracksQuery.isError) {
-    return <Feedback type="error" message="Не удалось загрузить трассы" />;
+    return (
+      <Feedback
+        type="error"
+        message={getApiErrorMessage(
+          state.tracksQuery.error,
+          "Не удалось загрузить трассы",
+        )}
+      />
+    );
   }
 
   const completedCount =
     state.tracksQuery.data?.filter((track) => Boolean(track.completion)).length ?? 0;
 
   return (
-    <main className={styles.page}>
+    <PageContainer width="wide">
       <header className={styles.pageHeader}>
         <div className={styles.titleBlock}>
           <Typography variant="caption" tone="primary">
@@ -30,7 +39,7 @@ export function TracksList() {
             Результат сохранится, а очки сразу изменят вашу позицию в лиге.
           </Typography>
         </div>
-        <div className={styles.progress}>
+        <Card className={styles.progress} padding="compact">
           <Sparkles aria-hidden size={20} />
           <div>
             <Typography variant="h3">
@@ -40,7 +49,7 @@ export function TracksList() {
               трасс пройдено
             </Typography>
           </div>
-        </div>
+        </Card>
       </header>
 
       <section aria-label="Список трасс" className={styles.grid}>
@@ -53,6 +62,6 @@ export function TracksList() {
         onClose={state.closeTrack}
         track={state.selectedTrack}
       />
-    </main>
+    </PageContainer>
   );
 }
