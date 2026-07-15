@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { GetUser } from '../auth/get-user.decorator';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CompleteTrackDto } from './dto/complete-track.dto';
 import { RateTrackDto } from './dto/rate-track.dto';
 import { TracksService } from './tracks.service';

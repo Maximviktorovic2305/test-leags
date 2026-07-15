@@ -3,12 +3,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { CsrfHeaderGuard } from './csrf-header.guard';
-import { JwtAuthGuard } from './jwt-auth.guard';
-import { JwtRefreshGuard } from './jwt-refresh.guard';
-import { JwtRefreshStrategy } from './jwt-refresh.strategy';
-import { JwtStrategy } from './jwt.strategy';
+import { CsrfHeaderGuard } from './guards/csrf-header.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { RefreshSessionStore } from './refresh-session.store';
+import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [PassportModule, JwtModule.register({})],

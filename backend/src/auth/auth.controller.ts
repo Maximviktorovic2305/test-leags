@@ -16,11 +16,11 @@ import {
 } from './auth-cookie.constants';
 import { getAuthTokenSettings } from './auth-token-config';
 import { AuthService } from './auth.service';
-import { CsrfHeaderGuard } from './csrf-header.guard';
 import { LoginDto } from './dto/login.dto';
 import { GetUser } from './get-user.decorator';
-import { JwtAuthGuard } from './jwt-auth.guard';
-import { JwtRefreshGuard } from './jwt-refresh.guard';
+import { CsrfHeaderGuard } from './guards/csrf-header.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 
 @Controller('auth')
 export class AuthController {

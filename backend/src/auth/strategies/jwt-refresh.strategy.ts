@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import type { Request } from 'express';
 import { Strategy } from 'passport-jwt';
-import { REFRESH_TOKEN_COOKIE_NAME } from './auth-cookie.constants';
+import { REFRESH_TOKEN_COOKIE_NAME } from '../auth-cookie.constants';
 
 type JwtPayload = { sub: string; nickname: string };
 

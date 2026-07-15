@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { GetUser } from '../auth/get-user.decorator';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AVATAR_FIELD_NAME, MAX_AVATAR_SIZE_BYTES } from './profile.constants';
 import { ProfileService } from './profile.service';
 import type { UploadedAvatar } from './profile.types';

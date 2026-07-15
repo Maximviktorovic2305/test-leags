@@ -1,6 +1,6 @@
 import { Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { GetUser } from '../auth/get-user.decorator';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { LeaderboardService } from './leaderboard.service';
 import { LeagueService } from './league.service';
 
